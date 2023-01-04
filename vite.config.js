@@ -113,20 +113,20 @@ export default defineConfig({
   ],
 
   // Uncomment this if you're not inside Docker
-  // server: {
-  //   port: 3000
-  // },
+  server: {
+    port: 3000
+  },
 
   // Delete this if you're not inside docker
   // and uncomment above
-  server: {
-    host: '0.0.0.0',
-    port: 3000,
-    hmr: {
-      host: 'localhost',
-      port: 3000
-    }
-  },
+  // server: {
+  //   host: '0.0.0.0',
+  //   port: 3000,
+  //   hmr: {
+  //     host: 'localhost',
+  //     port: 3000
+  //   }
+  // },
 
   resolve: {
     alias: {

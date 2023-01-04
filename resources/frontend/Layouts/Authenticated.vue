@@ -1,3 +1,5 @@
+<!-- eslint-disable vue/html-self-closing -->
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <q-layout view="lhr lpr lfr">
     <q-header>
@@ -28,6 +30,17 @@
     >
       <NavList bookmarker>
         <NavLink
+          v-for="menu in menus"
+          :key="menu.id"
+          :href="route('dashboard')"
+          :active="route().current('dashboard')"
+        >
+          <template #icon>
+            <!-- <span v-html="menu.icon"> </span> -->
+          </template>
+          {{ menu.title }}
+        </NavLink>
+        <!-- <NavLink
           :href="route('dashboard')"
           :active="route().current('dashboard')"
         >
@@ -44,7 +57,7 @@
             <i-mdi-account-outline />
           </template>
           Account
-        </NavLink>
+        </NavLink> -->
       </NavList>
     </NavDrawer>
 
@@ -70,4 +83,25 @@ const layout = useLocalStorage(`authenticated-layout-${page.props.value.auth.use
     mini: true
   }
 })
+
+const menus = ref([
+  {
+    id: 1,
+    title: 'Início',
+    icon: '<i-fe-home/>',
+    route: '#'
+  },
+  {
+    id: 2,
+    title: 'Pizzas',
+    icon: '<i-fe-home/>',
+    route: '#'
+  },
+  {
+    id: 3,
+    title: 'Cardápio',
+    icon: '<i-fe-home/>',
+    route: '#'
+  }
+])
 </script>
