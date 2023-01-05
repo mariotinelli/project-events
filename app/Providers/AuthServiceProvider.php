@@ -23,8 +23,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
 
-        //
+        // Gate::define('admin', function ($user) {
+        //     if ($user->id_type_user == 1) {
+        //         return true;
+        //     }
+        // });
+
+        $this->registerPolicies();
     }
 }
