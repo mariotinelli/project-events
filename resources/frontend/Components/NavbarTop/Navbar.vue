@@ -1,81 +1,126 @@
 <template>
+
   <div class="full-width tw-self-start">
-    <q-toolbar class="bg-purple text-white shadow-2 rounded-borders">
+
+    <q-toolbar class="bg-primary text-white shadow-2">
+
       <q-btn
+        no-caps
         flat
-        label="Homepage"
+        class="hover:tw-text-white"
+        label="Tinelli Eventos"
+        :href="route('home')"
       />
+
       <q-space />
-      <NavList>
-        <NavLink
-          :href="route('dashboard')"
-          :active="route().current('dashboard')"
+
+      <NavbarTopNavbarList>
+        <NavbarTopNavbarLink
+          v-for="link in links"
+          :key="link.id"
+          :href="route(link.route)"
+          :active="route().current(link.route)"
         >
-          Ínicio
-        </NavLink>
-        <NavLink
-          :href="route('dashboard')"
-          :active="route().current('dashboard')"
-        >
-          Eventos
-        </NavLink>
-        <NavLink
-          :href="route('dashboard')"
-          :active="route().current('dashboard')"
-        >
-          Sobre
-        </NavLink>
-      </NavList>
+          {{ link.title }}
+        </NavbarTopNavbarLink>
+      </NavbarTopNavbarList>
+
       <q-space />
+
       <q-btn-dropdown
+        v-if="page.props.value.auth.user"
         unelevated
-        label="Account Settings"
+        label="Minha Conta"
         class="hover:bg-purple"
       >
         <div class="row no-wrap q-pa-md">
-          <div class="column">
-            <div class="text-h6 q-mb-md">
-              Settings
-            </div>
-            <q-toggle
-              v-model="mobileData"
-              label="Use Mobile Data"
-            />
-            <q-toggle
-              v-model="bluetooth"
-              label="Bluetooth"
-            />
-          </div>
-
-          <q-separator
-            vertical
-            inset
-            class="q-mx-lg"
-          />
-
-          <div class="column items-center">
+          <div
+            class="column items-center"
+          >
             <q-avatar size="72px">
               <img src="https://cdn.quasar.dev/img/boy-avatar.png">
             </q-avatar>
 
             <div class="text-subtitle1 q-mt-md q-mb-xs">
-              John Doe
+              {{ page.props.value.auth.user.name }}
             </div>
 
-            <q-btn
-              v-close-popup
-              color="primary"
-              label="Logout"
-              push
-              size="sm"
-            />
+            <div class="full-width tw-flex tw-flex-col tw-items-start q-gutter-y-sm">
+              <q-btn
+                v-close-popup
+                color="primary"
+                label="Perfil"
+                push
+                size="sm"
+              />
+
+              <q-btn
+                v-close-popup
+                color="primary"
+                label="Meus Eventos"
+                push
+                size="sm"
+              />
+
+              <q-separator
+                class="full-width"
+                color="dark-10"
+              />
+
+              <q-btn
+                v-close-popup
+                color="primary"
+                label="Logout"
+                push
+                size="sm"
+              />
+            </div>
           </div>
         </div>
       </q-btn-dropdown>
+
+      <div v-else>
+
+        <q-btn
+          no-caps
+          flat
+          label="Entrar"
+          class="hover:tw-text-white"
+          :href="route('login')"
+        />
+
+        <q-btn
+          no-caps
+          outline
+          label="Cadastrar"
+          class="hover:tw-text-white"
+          :href="route('register')"
+        />
+      </div>
+
     </q-toolbar>
+
   </div>
+
 </template>
 
 <script setup>
+
+const page = usePage()
+
+const links = [
+  {
+    title: 'Ínicio',
+    route: 'home'
+  },
+  {
+    title: 'Eventos',
+    route: 'events.index'
+  },
+  {
+    title: 'Sobre',
+    route: 'about'
+  }
+]
 
 </script>

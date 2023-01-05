@@ -1,9 +1,9 @@
-<template layout="AppShell">
+<template>
   <div
     class="tw-relative tw-flex tw-items-top tw-justify-center tw-min-h-screen tw-bg-gray-100 dark:tw-bg-gray-900 sm:tw-items-center sm:tw-pt-0"
   >
     <Head title="Welcome" />
-    <Navbar />
+    <NavbarTopNavbar />
     <!-- <div
       v-if="canLogin"
       class="tw-hidden tw-fixed tw-top-0 tw-right-0 tw-px-6 tw-py-4 sm:tw-block"
@@ -37,8 +37,6 @@
 </template>
 
 <script setup>
-import Navbar from '@/Components/NavbarTop/Navbar.vue';
-
 defineProps({
 
 })
