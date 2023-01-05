@@ -1,4 +1,4 @@
-<template layout="AppShell,Authenticated">
+<template layout="AppShell">
   <div class="tw-p-6">
     <Head :title="title" />
 
