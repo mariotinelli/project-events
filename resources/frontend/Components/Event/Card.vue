@@ -14,6 +14,25 @@
     <q-card-section class="q-pt-none">
       {{ event.description }}
     </q-card-section>
+
+    <q-separator />
+
+    <q-card-actions align="left">
+      <q-btn
+        no-caps
+        color="secondary"
+      >
+        <i-fe-check />
+        Participar
+      </q-btn>
+      <q-btn
+        no-caps
+        color="info"
+      >
+        <i-fe-eye />
+        Ver mais
+      </q-btn>
+    </q-card-actions>
   </q-card>
 </template>
 

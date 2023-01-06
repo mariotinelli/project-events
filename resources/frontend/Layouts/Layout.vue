@@ -1,6 +1,6 @@
 <template>
   <q-layout
-    view="lHh lpr lFf"
+    view="lHh lpr lff"
     class="tw-bg-slate-200 tw-h-full"
   >
     <!-- eslint-disable-next-line vue/attribute-hyphenation -->

@@ -44,7 +44,9 @@
         v-model="pagination.page"
         color="dark"
         direction-links
+        boundary-numbers
         :max="pagesNumber"
+        :max-pages="maxPages"
         size="lg"
       />
     </div>
@@ -73,6 +75,17 @@ function getItemsPerPage () {
 
   return 14
 }
+
+const maxPages = computed(() => {
+  if ($q.screen.lt.sm) {
+    console.log('sm')
+    return 2
+  }
+  if ($q.screen.lt.md) {
+    return 5
+  }
+  return 6
+})
 
 const filter = ref('')
 const pagination = ref({
