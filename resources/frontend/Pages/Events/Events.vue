@@ -2,7 +2,7 @@
   <DefaultLayout>
     <template #content>
       <EventGrid :events="events" />
-      <q-pagination
+      <!-- <q-pagination
         v-model="current"
         :max="events.length"
         direction-links
@@ -10,16 +10,201 @@
         color="grey"
         active-color="primary"
         gutter="20px"
-      />
+      /> -->
     </template>
   </DefaultLayout>
 </template>
 
 <script setup>
-const current = ref(1)
+// const current = ref(1)
 const events = [
   {
     title: 'Event',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
+    description: 'This is a description of the event',
+    date: '2020-03-03'
+  },
+  {
+    title: 'Event 2',
     description: 'This is a description of the event',
     date: '2020-03-03'
   },

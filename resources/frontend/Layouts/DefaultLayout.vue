@@ -3,8 +3,7 @@
 <template>
   <q-layout
     view="lHh lpr lFf"
-    container
-    style="height: 100vh"
+    class="tw-bg-slate-200 tw-h-screen"
   >
     <q-header elevated>
       <NavbarTopNavbar />
@@ -19,7 +18,7 @@
       <FadeTransaction>
         <main
           v-if="$slots.content"
-          class="q-pa-md"
+          class="q-pa-md tw-bg-slate-200"
         >
           <slot name="content" />
         </main>
