@@ -1,22 +1,9 @@
 <template>
-  <DefaultLayout>
-    <template #content>
-      <EventGrid :events="events" />
-      <!-- <q-pagination
-        v-model="current"
-        :max="events.length"
-        direction-links
-        flat
-        color="grey"
-        active-color="primary"
-        gutter="20px"
-      /> -->
-    </template>
-  </DefaultLayout>
+  <EventGrid :events="events" />
 </template>
 
 <script setup>
-// const current = ref(1)
+
 const events = [
   {
     title: 'Event',

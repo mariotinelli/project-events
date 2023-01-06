@@ -32,21 +32,30 @@
       <q-separator />
       <NavList class="tw-w-full">
         <NavLink
-          :href="route('account.index')"
-          :active="route().current('account.index')"
+          :href="route('dashboard')"
+          :active="route().current('dashboard')"
         >
           <template #icon>
             <i-mdi-account-outline />
           </template>
-          My Account
+          Perfil
         </NavLink>
-        <q-separator spaced />
-        <q-toggle
+        <NavLink
+          :href="route('dashboard')"
+          :active="route().current('dashboard')"
+        >
+          <template #icon>
+            <i-mdi-account-outline />
+          </template>
+          Meus Eventos
+        </NavLink>
+        <!-- <q-separator spaced /> -->
+        <!-- <q-toggle
           v-model="dark"
           color="deep-purple-4"
         >
           <span class="tw-opacity-60">Dark Mode</span>
-        </q-toggle>
+        </q-toggle> -->
         <q-separator spaced />
         <NavLink
           :href="route('logout')"

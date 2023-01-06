@@ -5,7 +5,7 @@
       v-model:pagination="pagination"
       grid
       :card-container-class="cardContainerClass"
-      title="Eventos"
+      title="Próximos Eventos"
       :rows="events"
       :columns="columns"
       row-key="name"
@@ -42,7 +42,7 @@
     <div class="full-width row justify-center q-mt-md">
       <q-pagination
         v-model="pagination.page"
-        color="primary"
+        color="dark"
         direction-links
         :max="pagesNumber"
         size="lg"

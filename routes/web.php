@@ -21,12 +21,6 @@ use Inertia\Inertia;
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Events
-Route::get('/events', [EventController::class, 'index'])->name('events.index');
-
-// About
-Route::get('/about', [AboutController::class, 'index'])->name('about');
-
 Route::prefix('/')->middleware('auth')->group(function () {
 
     // Route::prefix('/')->middleware('can:admin')->group(function () {

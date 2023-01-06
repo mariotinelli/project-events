@@ -1,9 +1,6 @@
 <template>
-
   <div class="full-width tw-self-start">
-
-    <q-toolbar class="bg-primary text-white shadow-2">
-
+    <q-toolbar class="bg-dark text-white shadow-2">
       <q-btn
         no-caps
         flat
@@ -14,20 +11,9 @@
 
       <q-space />
 
-      <NavbarTopNavbarList>
-        <NavbarTopNavbarLink
-          v-for="link in links"
-          :key="link.id"
-          :href="route(link.route)"
-          :active="route().current(link.route)"
-        >
-          {{ link.title }}
-        </NavbarTopNavbarLink>
-      </NavbarTopNavbarList>
+      <AccountMenu v-if="page.props.value.auth.user" />
 
-      <q-space />
-
-      <q-btn-dropdown
+      <!-- <q-btn-dropdown
         v-if="page.props.value.auth.user"
         unelevated
         label="Minha Conta"
@@ -77,10 +63,9 @@
             </div>
           </div>
         </div>
-      </q-btn-dropdown>
+      </q-btn-dropdown> -->
 
       <div v-else>
-
         <q-btn
           no-caps
           flat
@@ -97,30 +82,12 @@
           :href="route('register')"
         />
       </div>
-
     </q-toolbar>
-
   </div>
-
 </template>
 
 <script setup>
 
 const page = usePage()
-
-const links = [
-  {
-    title: 'Ínicio',
-    route: 'home'
-  },
-  {
-    title: 'Eventos',
-    route: 'events.index'
-  },
-  {
-    title: 'Sobre',
-    route: 'about'
-  }
-]
 
 </script>
