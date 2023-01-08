@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3|^8.1",
         "based/momentum-modal": "^0.1.6",
+        "doctrine/dbal": "^3.5",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.4",
         "inertiajs/inertia-laravel": "^0.5.4",

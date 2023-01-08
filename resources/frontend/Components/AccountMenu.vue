@@ -32,8 +32,8 @@
       <q-separator />
       <NavList class="tw-w-full">
         <NavLink
-          :href="route('dashboard')"
-          :active="route().current('dashboard')"
+          :href="route('users.profile')"
+          :active="route().current('users.profile')"
         >
           <template #icon>
             <i-mdi-account-outline />
@@ -41,8 +41,8 @@
           Perfil
         </NavLink>
         <NavLink
-          :href="route('dashboard')"
-          :active="route().current('dashboard')"
+          :href="route('users.my-events')"
+          :active="route().current('users.my-events')"
         >
           <template #icon>
             <i-fe-star-o />
@@ -50,8 +50,8 @@
           Meus Eventos
         </NavLink>
         <NavLink
-          :href="route('dashboard')"
-          :active="route().current('dashboard')"
+          :href="route('users.participation')"
+          :active="route().current('users.participation')"
         >
           <template #icon>
             <i-fe-check />
@@ -59,8 +59,8 @@
           Participação
         </NavLink>
         <NavLink
-          :href="route('dashboard')"
-          :active="route().current('dashboard')"
+          :href="route('users.favorite-events')"
+          :active="route().current('users.favorite-events')"
         >
           <template #icon>
             <i-fe-heart-o />
