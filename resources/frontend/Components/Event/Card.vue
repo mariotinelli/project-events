@@ -17,20 +17,26 @@
 
     <q-separator />
 
-    <q-card-actions align="left">
+    <q-card-actions align="between">
       <q-btn
         no-caps
-        color="secondary"
+        color="green-14"
       >
         <i-fe-check />
         Participar
       </q-btn>
       <q-btn
         no-caps
-        color="info"
+        color="indigo-13"
       >
         <i-fe-eye />
         Ver mais
+      </q-btn>
+      <q-btn
+        no-caps
+        align="right"
+      >
+        <i-fe-heart-o />
       </q-btn>
     </q-card-actions>
   </q-card>

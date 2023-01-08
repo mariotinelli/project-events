@@ -3,6 +3,7 @@
   <Head title="Home" />
 
   <div
+    v-if="$q.screen.gt.md"
     id="background-image"
     class="tw-w-full tw-h-96"
   />

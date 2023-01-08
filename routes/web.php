@@ -23,6 +23,15 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('/')->middleware('auth')->group(function () {
 
+    Route::resource('events', EventController::class);
+    Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
+    Route::get('my-events', [UserController::class, 'myEvents'])->name('users.my-events');
+    Route::get('participation', [UserController::class, 'participation'])->name('users.participation');
+    Route::get('favorite-events', [UserController::class, 'favoriteEvents'])->name('users.favorite-events');
+
+    Route::post('to-participate', [EventController::class, 'toParticipate'])->name('events.to-participate');
+    Route::post('uncheck-event', [EventController::class, 'uncheckEvent'])->name('events.uncheck');
+    Route::post('favorite-event', [EventController::class, 'favoriteEvent'])->name('events.favorite');
     // Route::prefix('/')->middleware('can:admin')->group(function () {
 
     // });

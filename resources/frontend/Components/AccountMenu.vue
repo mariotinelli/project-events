@@ -45,9 +45,27 @@
           :active="route().current('dashboard')"
         >
           <template #icon>
-            <i-mdi-account-outline />
+            <i-fe-star-o />
           </template>
           Meus Eventos
+        </NavLink>
+        <NavLink
+          :href="route('dashboard')"
+          :active="route().current('dashboard')"
+        >
+          <template #icon>
+            <i-fe-check />
+          </template>
+          Participação
+        </NavLink>
+        <NavLink
+          :href="route('dashboard')"
+          :active="route().current('dashboard')"
+        >
+          <template #icon>
+            <i-fe-heart-o />
+          </template>
+          Favoritos
         </NavLink>
         <!-- <q-separator spaced /> -->
         <!-- <q-toggle
@@ -73,18 +91,18 @@
 </template>
 
 <script setup>
-import { useAppShell } from '@/store/app-shell'
+// import { useAppShell } from '@/store/app-shell'
 
-const { settings, toggleDarkMode } = useAppShell()
+// const { settings, toggleDarkMode } = useAppShell()
 
-const dark = computed({
-  get () {
-    return settings.isDark
-  },
-  set () {
-    toggleDarkMode()
-  }
-})
+// const dark = computed({
+//   get () {
+//     return settings.isDark
+//   },
+//   set () {
+//     toggleDarkMode()
+//   }
+// })
 
 const isOpen = ref(false)
 
