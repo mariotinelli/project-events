@@ -56,7 +56,7 @@
           <template #icon>
             <i-fe-check />
           </template>
-          Participação
+          Participações
         </NavLink>
         <NavLink
           :href="route('users.favorite-events')"

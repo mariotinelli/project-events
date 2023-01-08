@@ -1,12 +1,14 @@
 
 <template layout="AppShell,Layout">
-  <Head title="Meu Eventos" />
+  <Head title="Meus Eventos" />
 
-  <h1>My Events</h1>
+  <EventTable :events="events" />
 </template>
 
 <script setup>
-
+defineProps({
+  events: Array
+})
 </script>
 
 <style lang="scss" scoped>

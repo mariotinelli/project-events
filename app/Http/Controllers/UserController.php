@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\User;
+use App\Services\FormatDatetimeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -101,7 +104,17 @@ class UserController extends Controller
      */
     public function myEvents()
     {
-        return Inertia::render('User/MyEvents');
+        $events = Event::select('events.*', 'event_categories.name as category_name')
+            ->join('event_categories', 'events.event_category_id', '=', 'event_categories.id')
+            ->where('events.user_id', Auth::user()->id)
+            ->get();
+
+        foreach ($events as $event) {
+            $event->date = FormatDatetimeService::formatDate($event->date);
+            $event->duration = FormatDatetimeService::formatTime($event->duration);
+        }
+
+        return Inertia::render('User/MyEvents', ['events' => $events]);
     }
 
     /**

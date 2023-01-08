@@ -14,6 +14,9 @@ use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
+
+    protected $PARTICIPANT_TYPE = 2;
+
     /**
      * Display the registration view.
      *
@@ -53,6 +56,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'user_type_id' => $this->PARTICIPANT_TYPE
         ]);
 
         event(new Registered($user));

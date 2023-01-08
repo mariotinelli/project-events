@@ -35,7 +35,7 @@
       <q-btn
         no-caps
         align="right"
-        class="hover:tw-text-red-900"
+        class="hover:tw-text-red-600"
       >
         <i-fe-heart-o />
       </q-btn>
