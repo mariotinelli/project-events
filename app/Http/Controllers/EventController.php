@@ -24,7 +24,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Events/NewEvent');
     }
 
     /**
@@ -57,7 +57,7 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Inertia::render('Events/EditEvent');
     }
 
     /**

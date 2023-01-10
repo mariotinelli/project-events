@@ -1,100 +1,168 @@
 <template>
-  <div class="q-pa-md event-table">
-    <q-table
-      :rows="rows"
-      :columns="columns"
-      row-key="id"
-      :filter="filter"
-      :loading="loading"
-    >
-      <template #top>
-        <q-btn
-          color="primary"
-          :disable="loading"
-          label="Adicionar Novo Evento"
-          @click="addEvent()"
-        />
-        <q-space />
-        <q-input
-          v-model="filter"
-          placeholder="Busque um evento"
-          dense
-          debounce="300"
-          color="primary"
-        >
-          <template #append>
-            <i-fe-search />
-          </template>
-        </q-input>
-      </template>
+  <div class="q-pa-md ">
+    <div class="event-table shadow-10 tw-rounded-b-sm">
+      <q-table
+        v-model:pagination="pagination"
+        :rows="rows"
+        :columns="columns"
+        row-key="id"
+        hide-bottom
+        :filter="filter"
+        :loading="loading"
+        flat
+      >
+        <template #top>
+          <q-btn
+            color="primary"
+            :disable="loading"
+            label="Adicionar Novo Evento"
+            :href="route('events.create')"
+          />
+          <q-space />
+          <q-input
+            v-model="filter"
+            placeholder="Busque um evento"
+            dense
+            debounce="300"
+            color="primary"
+          >
+            <template #append>
+              <i-fe-search />
+            </template>
+          </q-input>
+        </template>
 
-      <!-- eslint-disable-next-line vue/no-template-shadow -->
-      <template #body="props">
-        <q-tr :props="props">
-          <q-td
-            key="title"
-            :props="props"
-          >
-            {{ props.row.title }}
-          </q-td>
-          <q-td
-            key="category_name"
-            :props="props"
-          >
-            {{ props.row.category_name }}
-          </q-td>
-          <q-td
-            key="participants"
-            :props="props"
-          >
-            {{ props.row.participants }}
-          </q-td>
-          <q-td
-            key="date"
-            :props="props"
-          >
-            {{ props.row.date }}
-          </q-td>
-          <q-td
-            key="duration"
-            :props="props"
-          >
-            {{ props.row.duration }}
-          </q-td>
-          <q-td
-            key="actions"
-            class="q-gutter-x-sm"
-            :props="props"
-          >
-            <q-btn
-              no-caps
-              align="left"
-              color="primary"
-              @click="editEvent(props.row.id)"
+        <!-- eslint-disable-next-line vue/no-template-shadow -->
+        <template #body="props">
+          <q-tr :props="props">
+            <q-td
+              key="title"
+              :props="props"
             >
-              <i-fe-pencil />
-              Editar
-            </q-btn>
-            <q-btn
-              no-caps
-              align="left"
-              color="red"
-              @click="deleteEvent(props.row.id)"
+              {{ props.row.title }}
+            </q-td>
+            <q-td
+              key="category_name"
+              :props="props"
             >
-              <i-fe-trash />
-              Deletar
-            </q-btn>
-          </q-td>
-        </q-tr>
-      </template>
-    </q-table>
+              {{ props.row.category_name }}
+            </q-td>
+            <q-td
+              key="participants"
+              :props="props"
+            >
+              {{ props.row.participants }}
+            </q-td>
+            <q-td
+              key="date"
+              :props="props"
+            >
+              {{ props.row.date }}
+            </q-td>
+            <q-td
+              key="duration"
+              :props="props"
+            >
+              {{ props.row.duration }}
+            </q-td>
+            <q-td
+              key="actions"
+              class="q-gutter-x-sm"
+              :props="props"
+            >
+              <q-btn
+                no-caps
+                align="left"
+                color="primary"
+                :href="route('events.edit', props.row.id)"
+              >
+                <i-fe-pencil />
+                Editar
+              </q-btn>
+              <q-btn
+                no-caps
+                align="left"
+                color="red"
+                :href="route('events.destroy', props.row.id)"
+              >
+                <i-fe-trash />
+                Deletar
+              </q-btn>
+            </q-td>
+          </q-tr>
+        </template>
+      </q-table>
+
+      <q-separator />
+
+      <div class="bg-white q-pa-sm tw-shadow-black full-width row justify-end items-center tw-rounded-b-sm q-gutter-x-lg">
+        Eventos por página:
+        <q-select
+          v-model="itemsPerPage"
+          :options="options"
+          borderless
+          behavior="menu"
+          outlined
+        />
+        <q-pagination
+          v-model="pagination.page"
+          color="primary"
+          direction-links
+          input
+          boundary-numbers
+          :max="pagesNumber"
+          :max-pages="maxPages"
+          size="lg"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-
 const props = defineProps({
   events: Array
+})
+const pagesNumber = computed(() => getPagesNumber())
+
+function getPagesNumber () {
+  if (pagination.value.rowsPerPage === 0) {
+    return 1
+  }
+  return Math.ceil(props.events.length / pagination.value.rowsPerPage)
+}
+
+const $q = useQuasar()
+
+const options = [5, 15, 20, 50, 'Todos']
+const itemsPerPage = ref(5)
+
+function getItemsPerPage () {
+  if (itemsPerPage.value === 'Todos') {
+    return 0
+  }
+  return itemsPerPage
+}
+
+const maxPages = computed(() => {
+  if ($q.screen.lt.sm) {
+    return 2
+  }
+  if ($q.screen.lt.md) {
+    return 5
+  }
+  return 6
+})
+
+const pagination = ref({
+  sortBy: 'desc',
+  descending: false,
+  page: 1,
+  rowsPerPage: getItemsPerPage()
+})
+
+watchEffect(() => {
+  pagination.value.rowsPerPage = getItemsPerPage()
 })
 
 const columns = [
@@ -111,26 +179,15 @@ const filter = ref('')
 // const rowCount = ref(10)
 const rows = ref([...props.events])
 
-// emulate fetching data from server
-const addEvent = () => {
-  loading.value = true
-}
-
-// emulate fetching data from server
-const editEvent = (eventId) => {
-  loading.value = true
-}
-
-// emulate fetching data from server
-const deleteEvent = (eventId) => {
-  loading.value = true
-}
+// const deleteEvent = (eventId) => {
+//   loading.value = true
+// }
 
 </script>
 
 <style lang="scss">
-.event-table th {
-  font-weight: bold !important;
-  font-size: 0.8rem !important;
-}
+  .event-table th {
+    font-weight: bold !important;
+    font-size: 0.8rem !important;
+  }
 </style>

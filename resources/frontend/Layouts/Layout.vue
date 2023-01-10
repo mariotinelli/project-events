@@ -9,9 +9,7 @@
     <Footer />
 
     <q-page-container>
-      <FadeTransition>
-        <slot />
-      </FadeTransition>
+      <slot />
     </q-page-container>
   </q-layout>
 </template>
