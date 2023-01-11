@@ -47,5 +47,8 @@
         "unplugin-vue-components": "^0.22.4",
         "vite": "^3.0.4",
         "vue": "^3.0.5"
+    },
+    "dependencies": {
+        "laravel-vue-pagination": "^4.0.0"
     }
 }

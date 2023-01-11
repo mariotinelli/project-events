@@ -7,7 +7,7 @@
 
 <script setup>
 defineProps({
-  events: Array
+  events: Object
 })
 </script>
 

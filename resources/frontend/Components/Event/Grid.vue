@@ -56,7 +56,7 @@
 <script setup>
 
 const props = defineProps({
-  events: Array
+  events: Object
 })
 
 const pagesNumber = computed(() => Math.ceil(props.events.length / pagination.value.rowsPerPage))

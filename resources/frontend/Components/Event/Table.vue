@@ -3,7 +3,7 @@
     <div class="event-table shadow-10 tw-rounded-b-sm">
       <q-table
         v-model:pagination="pagination"
-        :rows="rows"
+        :rows="events.data"
         :columns="columns"
         row-key="id"
         hide-bottom
@@ -95,74 +95,17 @@
 
       <q-separator />
 
-      <div class="bg-white q-pa-sm tw-shadow-black full-width row justify-end items-center tw-rounded-b-sm q-gutter-x-lg">
-        Eventos por página:
-        <q-select
-          v-model="itemsPerPage"
-          :options="options"
-          borderless
-          behavior="menu"
-          outlined
-        />
-        <q-pagination
-          v-model="pagination.page"
-          color="primary"
-          direction-links
-          input
-          boundary-numbers
-          :max="pagesNumber"
-          :max-pages="maxPages"
-          size="lg"
-        />
+      <div class="bg-white q-pa-md tw-shadow-black full-width row justify-end items-center tw-rounded-b-sm q-gutter-x-lg">
+        <Pagination :pagination="events" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
-  events: Array
-})
-const pagesNumber = computed(() => getPagesNumber())
 
-function getPagesNumber () {
-  if (pagination.value.rowsPerPage === 0) {
-    return 1
-  }
-  return Math.ceil(props.events.length / pagination.value.rowsPerPage)
-}
-
-const $q = useQuasar()
-
-const options = [5, 15, 20, 50, 'Todos']
-const itemsPerPage = ref(5)
-
-function getItemsPerPage () {
-  if (itemsPerPage.value === 'Todos') {
-    return 0
-  }
-  return itemsPerPage
-}
-
-const maxPages = computed(() => {
-  if ($q.screen.lt.sm) {
-    return 2
-  }
-  if ($q.screen.lt.md) {
-    return 5
-  }
-  return 6
-})
-
-const pagination = ref({
-  sortBy: 'desc',
-  descending: false,
-  page: 1,
-  rowsPerPage: getItemsPerPage()
-})
-
-watchEffect(() => {
-  pagination.value.rowsPerPage = getItemsPerPage()
+defineProps({
+  events: Object
 })
 
 const columns = [
@@ -177,7 +120,7 @@ const columns = [
 const loading = ref(false)
 const filter = ref('')
 // const rowCount = ref(10)
-const rows = ref([...props.events])
+// const rows = ref([...props.events])
 
 // const deleteEvent = (eventId) => {
 //   loading.value = true
