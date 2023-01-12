@@ -60,26 +60,11 @@ const formatLinks = () => {
 }
 
 formatLinks()
-// const page = ref(pagination.value.current_page)
 
 watch(() => pagination.value.per_page, (perPage) => {
   Inertia.get(pagination.value.path, { pagination: perPage }, {
     preserveState: true
   })
 })
-
-// const noPreviousPage = computed(() => {
-//   return pagination.value.current_page === 1
-// })
-
-// const noNextPage = computed(() => {
-//   return pagination.value.current_page >= pagination.value.last_page
-// })
-
-// function loadPage (page) {
-//   Inertia.get(pagination.value.path, { page }, {
-//     preserveState: true
-//   })
-// }
 
 </script>

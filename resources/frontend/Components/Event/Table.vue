@@ -3,7 +3,7 @@
     <div class="event-table shadow-10 tw-rounded-b-sm">
       <q-table
         v-model:pagination="pagination"
-        :rows="events.data"
+        :rows="events"
         :columns="columns"
         row-key="id"
         hide-bottom
@@ -96,7 +96,19 @@
       <q-separator />
 
       <div class="bg-white q-pa-md tw-shadow-black full-width row justify-end items-center tw-rounded-b-sm q-gutter-x-lg">
-        <Pagination :pagination="events" />
+        Itens por página:
+        &nbsp;
+        <q-select
+          v-model="rowsPerPage"
+          borderless=""
+          :options="options"
+        />
+        <q-pagination
+          v-model="pagination.page"
+          :max="maxPerPage"
+          direction-links
+          boundary-links
+        />
       </div>
     </div>
   </div>
@@ -104,8 +116,29 @@
 
 <script setup>
 
-defineProps({
+const props = defineProps({
   events: Object
+})
+
+const options = [5, 15, 50, 100, 'Todos']
+
+const pagination = ref({
+  page: 1,
+  rowsPerPage: 5
+})
+
+const rowsPerPage = ref(pagination.value.rowsPerPage)
+
+watch(() => rowsPerPage.value, (perPage) => {
+  pagination.value.rowsPerPage = perPage !== 'Todos' ? perPage : 0
+})
+
+const maxPerPage = computed(() => {
+  if (pagination.value.rowsPerPage === 0) {
+    return 1
+  }
+
+  return Math.ceil(props.events.length / pagination.value.rowsPerPage)
 })
 
 const columns = [

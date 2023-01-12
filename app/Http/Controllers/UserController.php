@@ -99,26 +99,16 @@ class UserController extends Controller
 
     /**
      * Display list events this user.
-     * @param \Illuminate\Http\Request
      * @return \Inertia\Response
      */
-    public function myEvents(Request $request)
+    public function myEvents()
     {
-
-        $pagination = $request->pagination ?? 5;
-
-        if ($pagination === "Todos" ) {
-            $pagination = Event::select('events.*', 'event_categories.name as category_name')
-                ->join('event_categories', 'events.event_category_id', '=', 'event_categories.id')
-                ->where('events.user_id', Auth::user()->id)
-                ->count();
-        }
 
         $events = Event::select('events.*', 'event_categories.name as category_name')
             ->join('event_categories', 'events.event_category_id', '=', 'event_categories.id')
             ->where('events.user_id', Auth::user()->id)
-            ->paginate($pagination);
-
+            ->get();
+            
         foreach ($events as $event) {
             $event->date = FormatDatetimeService::formatDate($event->date);
             $event->duration = FormatDatetimeService::formatTime($event->duration);
