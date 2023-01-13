@@ -1,22 +1,22 @@
 <template>
   <div class="q-pa-md ">
-    <div class="event-table shadow-10 tw-rounded-b-sm">
+    <div class="table-pagination shadow-10 tw-rounded-b-sm">
       <q-table
         v-model:pagination="pagination"
-        :rows="events"
+        :rows="rows"
         :columns="columns"
         row-key="id"
+        :loading="loading"
         hide-bottom
         :filter="filter"
-        :loading="loading"
         flat
       >
         <template #top>
           <q-btn
             color="primary"
-            :disable="loading"
             label="Adicionar Novo Evento"
             :href="route('events.create')"
+            @click="() => { loading = true }"
           />
           <q-space />
           <q-input
@@ -72,7 +72,7 @@
             >
               <q-btn
                 no-caps
-                align="left"
+                align="right"
                 color="primary"
                 :href="route('events.edit', props.row.id)"
               >
@@ -81,7 +81,7 @@
               </q-btn>
               <q-btn
                 no-caps
-                align="left"
+                align="right"
                 color="red"
                 :href="route('events.destroy', props.row.id)"
               >
@@ -100,7 +100,8 @@
         &nbsp;
         <q-select
           v-model="rowsPerPage"
-          borderless=""
+          outlined
+          style="max-height: 50px"
           :options="options"
         />
         <q-pagination
@@ -117,8 +118,21 @@
 <script setup>
 
 const props = defineProps({
-  events: Object
+  rows: Array
 })
+
+const loading = ref(false)
+
+const columns = [
+  { name: 'title', required: true, label: 'Título', align: 'left', field: 'title', sortable: true },
+  { name: 'category_name', align: 'left', label: 'Categoria', field: 'category_name', sortable: true },
+  { name: 'participants', align: 'left', label: 'Participantes', field: 'participants', sortable: true },
+  { name: 'date', align: 'left', label: 'Data', field: 'date', sortable: true },
+  { name: 'duration', align: 'left', label: 'Duração', field: 'duration', sortable: true },
+  { name: 'actions', align: 'center', label: 'Ações', field: 'actions' }
+]
+
+const filter = ref('')
 
 const options = [5, 15, 50, 100, 'Todos']
 
@@ -137,33 +151,21 @@ const maxPerPage = computed(() => {
   if (pagination.value.rowsPerPage === 0) {
     return 1
   }
-
-  return Math.ceil(props.events.length / pagination.value.rowsPerPage)
+  return Math.ceil(props.rows.length / pagination.value.rowsPerPage)
 })
-
-const columns = [
-  { name: 'title', required: true, label: 'Título', align: 'left', field: 'title', sortable: true },
-  { name: 'category_name', align: 'left', label: 'Categoria', field: 'category_name', sortable: true },
-  { name: 'participants', align: 'left', label: 'Participantes', field: 'participants', sortable: true },
-  { name: 'date', align: 'left', label: 'Data', field: 'date', sortable: true },
-  { name: 'duration', align: 'left', label: 'Duração', field: 'duration', sortable: true },
-  { name: 'actions', align: 'center', label: 'Ações', field: 'actions' }
-]
-
-const loading = ref(false)
-const filter = ref('')
-// const rowCount = ref(10)
-// const rows = ref([...props.events])
-
-// const deleteEvent = (eventId) => {
-//   loading.value = true
-// }
 
 </script>
 
 <style lang="scss">
-  .event-table th {
+  .table-pagination th {
     font-weight: bold !important;
     font-size: 0.8rem !important;
+  }
+
+  .table-pagination .q-field--auto-height .q-field__control,
+  .table-pagination .q-field--auto-height .q-field__native,
+  .table-pagination .q-field__marginal{
+    min-height: 30px !important;
+    max-height: 30px !important;
   }
 </style>

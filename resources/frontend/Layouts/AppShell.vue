@@ -28,4 +28,5 @@ const loadingIndicator = ref(null)
 
 Inertia.on('start', () => loadingIndicator.value.start())
 Inertia.on('finish', () => loadingIndicator.value.stop())
+
 </script>

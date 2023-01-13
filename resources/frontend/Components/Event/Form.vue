@@ -1,13 +1,18 @@
 <template>
   <div
-    class="q-pa-md"
+    class="q-pa-md tw-mx-auto"
     style="max-width: 400px"
   >
     <q-form
-      class="q-gutter-md"
+      class="q-gutter-md flex tw-flex-col justify-center"
       @submit="onSubmit"
       @reset="onReset"
     >
+
+      <div>
+
+      </div>
+      <!-- Image -->
       <q-file
         v-model="event.image"
         filled
@@ -28,6 +33,7 @@
         </template>
       </q-file>
 
+      <!-- Title -->
       <q-input
         v-model="event.title"
         filled
@@ -36,6 +42,7 @@
         :rules="[ val => val && val.length > 0 || 'O título do evento é obrigatório.']"
       />
 
+      <!-- Date -->
       <q-input
         v-model="event.date"
         filled
@@ -94,8 +101,9 @@
         </template>
       </q-input>
 
+      <!-- Duration -->
       <q-input
-        v-model="time"
+        v-model="event.time"
         filled
         mask="time"
         :rules="['time']"
@@ -124,12 +132,14 @@
         </template>
       </q-input>
 
+      <!-- Description -->
       <q-input
         v-model="event.description"
         filled
         type="textarea"
       />
 
+      <!-- Buttons -->
       <div>
         <q-btn
           label="Submit"
