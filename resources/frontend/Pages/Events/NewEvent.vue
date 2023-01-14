@@ -2,12 +2,12 @@
 <template layout="AppShell,Layout">
   <Head title="Novo Evento" />
 
-  <div class="bg-white tw-w-1/2 tw-mx-auto tw-mt-10">
-    <h3 class="tw-text-center q-pa-md">
-      Adicionar Novo Evento
+  <div class="bg-white tw-w-1/3 tw-mx-auto tw-mt-10 tw-shadow tw-shadow-black tw-rounded">
+    <h3 class="tw-text-center q-pa-md bg-dark tw-text-white">
+      Novo Evento
     </h3>
 
-    <q-separator spaced />
+    <q-separator />
 
     <EventForm />
   </div>
