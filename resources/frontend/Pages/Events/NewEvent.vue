@@ -9,11 +9,15 @@
 
     <q-separator />
 
-    <EventForm />
+    <EventForm :validationErrors="errors" />
   </div>
 </template>
 
 <script setup>
+
+defineProps({
+  errors: Object
+})
 
 </script>
 

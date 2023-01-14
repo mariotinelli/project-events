@@ -4,12 +4,15 @@
   >
     <q-form
       class="event-form q-gutter-md flex tw-flex-col justify-center"
-      @submit="onSubmit"
+      @submit.prevent="form.post(route('events.store'))"
       @reset="onReset"
     >
       <!-- Image -->
       <q-file
-        v-model="event.image"
+        v-model="form.image"
+        :error-message="form.errors.image"
+        :error="isValidFormImage"
+        autocomplete="off"
         outlined
         bottom-slots
         label="Imagem*"
@@ -23,25 +26,31 @@
         <template #append>
           <i-fe-close
             class="cursor-pointer"
-            @click.stop.prevent="event.image = null"
+            @click.stop.prevent="form.image = null"
           />
         </template>
       </q-file>
 
       <!-- Title -->
       <q-input
-        v-model="event.title"
+        v-model="form.title"
         outlined
+        :error-message="form.errors.title"
+        clearable
+        :error="isValidFormTitle"
+        autocomplete="off"
         label="Título*"
-        lazy-rules
-        :rules="[ val => val && val.length > 0 || 'O título do evento é obrigatório.']"
+        :model-value="form.title"
       />
 
       <!-- Date and Duration -->
       <div class="flex justify-between">
         <!-- Date -->
         <q-input
-          v-model="event.date"
+          v-model="form.date"
+          :error-message="form.errors.date"
+          :error="isValidFormDate"
+          autocomplete="off"
           label="Data do evento*"
           class="tw-w-72"
           outlined
@@ -57,7 +66,7 @@
                 transition-hide="scale"
               >
                 <q-date
-                  v-model="event.date"
+                  v-model="form.date"
                   :locale="locale"
                   mask="DD/MM/YYYY HH:mm"
                 >
@@ -105,12 +114,14 @@
 
         <!-- Duration -->
         <q-input
-          v-model="event.duration"
+          v-model="form.duration"
+          :error-message="form.errors.duration"
+          :error="isValidFormDuration"
+          autocomplete="off"
           label="Tempo de duração*"
           outlined
           class="tw-w-72"
           mask="time"
-          :rules="['time']"
         >
           <template #prepend>
             <i-ic-outline-watch-later
@@ -121,7 +132,7 @@
                 transition-show="scale"
                 transition-hide="scale"
               >
-                <q-time v-model="event.duration">
+                <q-time v-model="form.duration">
                   <div class="row items-center justify-end">
                     <q-btn
                       v-close-popup
@@ -139,7 +150,10 @@
 
       <!-- Description -->
       <q-input
-        v-model="event.description"
+        v-model="form.description"
+        :error-message="form.errors.description"
+        :error="isValidFormDescription"
+        autocomplete="off"
         label="Descrição*"
         outlined
         type="textarea"
@@ -148,11 +162,14 @@
       <!-- Buttons -->
       <div class="flex justify-end">
         <q-btn
+          :disabled="form.processing"
+          :loading="form.processing"
           label="Salvar"
           type="submit"
           color="positive"
         />
         <q-btn
+          :disabled="form.processing"
           label="Limpar"
           type="reset"
           color="negative"
@@ -164,41 +181,51 @@
 </template>
 
 <script setup>
-import { useQuasar } from 'quasar'
-
-const $q = useQuasar()
-
-const event = reactive({
-  image: '',
-  title: '',
-  date: '01/02/2023 12:44',
-  duration: '12:44',
-  description: ''
+const props = defineProps({
+  event: Object,
+  validationErrors: Object
 })
 
-const onSubmit = () => {
-  if (event.accept !== true) {
-    $q.notify({
-      color: 'red-5',
-      textColor: 'white',
-      icon: 'warning',
-      message: 'You need to accept the license and terms first'
-    })
-  } else {
-    $q.notify({
-      color: 'green-4',
-      textColor: 'white',
-      icon: 'cloud_done',
-      message: 'Submitted'
-    })
-  }
+const form = useForm({
+  image: props.event?.image ?? '',
+  title: props.event?.title ?? '',
+  date: props.event?.date ?? '',
+  duration: props.event?.duration ?? '',
+  description: props.event?.description ?? ''
+})
+
+// const errors = computed(() => {
+//   return {
+//     image: props.validationErrors.image ?? '',
+//     title: props.validationErrors.title ?? '',
+//     date: props.validationErrors.date ?? '',
+//     duration: props.validationErrors.duration ?? '',
+//     description: props.validationErrors.description ?? ''
+//   }
+// })
+
+const onReset = async () => {
+  resetForm()
+  resetValidation()
 }
 
-const onReset = () => {
-  event.name = null
-  event.age = null
-  event.accept = false
+const resetForm = () => {
+  form.title = props.event?.title ?? ''
+  form.image = props.event?.image ?? ''
+  form.date = props.event?.date ?? ''
+  form.duration = props.event?.duration ?? ''
+  form.description = props.event?.description ?? ''
 }
+
+const resetValidation = () => {
+  form.clearErrors()
+}
+
+const isValidFormImage = computed(() => { return form.image === '' && Object.keys(form.errors).length > 0 })
+const isValidFormTitle = computed(() => { return form.title === '' && Object.keys(form.errors).length > 0 })
+const isValidFormDate = computed(() => { return form.date === '' && Object.keys(form.errors).length > 0 })
+const isValidFormDuration = computed(() => { return form.duration === '' && Object.keys(form.errors).length > 0 })
+const isValidFormDescription = computed(() => { return form.description === '' && Object.keys(form.errors).length > 0 })
 
 const locale = {
   days: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
