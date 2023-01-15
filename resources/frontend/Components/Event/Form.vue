@@ -7,6 +7,8 @@
       @submit.prevent="form.post(route('events.store'))"
       @reset="onReset"
     >
+      <h5>Dados do Evento</h5>
+
       <!-- Image -->
       <q-file
         v-model="form.image"
@@ -17,6 +19,7 @@
         bottom-slots
         label="Imagem*"
         counter
+        class="tw-w-49%"
       >
         <template #prepend>
           <i-fe-upload
@@ -31,20 +34,20 @@
         </template>
       </q-file>
 
-      <!-- Title -->
-      <q-input
-        v-model="form.title"
-        outlined
-        :error-message="form.errors.title"
-        clearable
-        :error="isValidFormTitle"
-        autocomplete="off"
-        label="Título*"
-        :model-value="form.title"
-      />
-
-      <!-- Date and Duration -->
+      <!-- Title, Date and Duration -->
       <div class="flex justify-between">
+        <!-- Title -->
+        <q-input
+          v-model="form.title"
+          outlined
+          :error-message="form.errors.title"
+          clearable
+          :error="isValidFormTitle"
+          autocomplete="off"
+          label="Título*"
+          class="tw-w-three-inputs"
+        />
+
         <!-- Date -->
         <q-input
           v-model="form.date"
@@ -52,7 +55,7 @@
           :error="isValidFormDate"
           autocomplete="off"
           label="Data do evento*"
-          class="tw-w-72"
+          class="tw-w-three-inputs"
           outlined
         >
           <template #prepend>
@@ -94,7 +97,7 @@
                 transition-hide="scale"
               >
                 <q-time
-                  v-model="event.date"
+                  v-model="form.date"
                   mask="DD/MM/YYYY HH:mm"
                   format24h
                 >
@@ -120,7 +123,7 @@
           autocomplete="off"
           label="Tempo de duração*"
           outlined
-          class="tw-w-72"
+          class="tw-w-three-inputs"
           mask="time"
         >
           <template #prepend>
@@ -159,6 +162,100 @@
         type="textarea"
       />
 
+      <h5>Endereço do Evento</h5>
+
+      <!-- Zip Code, Street and Number -->
+      <div class="flex justify-between">
+        <!-- ZIP CODE -->
+        <q-input
+          v-model="form.address.zip_code"
+          outlined
+          label="CEP*"
+          mask="#####-###"
+          unmasked-value
+          :error-message="form.errors['address.zip_code']"
+          clearable
+          :error="isValidFormZipCode"
+          autocomplete="off"
+          class="tw-w-three-inputs"
+        />
+
+        <!-- Street -->
+        <q-input
+          v-model="form.address.street"
+          outlined
+          label="Rua\Av*"
+          :error-message="form.errors['address.street']"
+          clearable
+          :error="isValidFormStreet"
+          autocomplete="off"
+          class="tw-w-three-inputs"
+        />
+
+        <!-- Number -->
+        <q-input
+          v-model="form.address.number"
+          outlined
+          label="Número*"
+          :error-message="form.errors['address.number']"
+          clearable
+          :error="isValidFormNumber"
+          autocomplete="off"
+          class="tw-w-three-inputs"
+        />
+      </div>
+
+      <!-- District, Complement and City -->
+      <div class="flex justify-between">
+        <!-- District -->
+        <q-input
+          v-model="form.address.district"
+          outlined
+          label="Bairro*"
+          :error-message="form.errors['address.district']"
+          clearable
+          :error="isValidFormDistrict"
+          autocomplete="off"
+          class="tw-w-three-inputs"
+        />
+
+        <!-- Complement -->
+        <q-input
+          v-model="form.address.complement"
+          outlined
+          label="Complemento"
+          clearable
+          autocomplete="off"
+          class="tw-w-three-inputs"
+        />
+
+        <!-- City -->
+        <q-input
+          v-model="form.address.city"
+          outlined
+          disable
+          label="Cidade*"
+          :error-message="form.errors['address.city']"
+          clearable
+          :error="isValidFormCity"
+          autocomplete="off"
+          class="tw-w-three-inputs"
+        />
+      </div>
+
+      <!-- State -->
+      <q-input
+        v-model="form.address.state"
+        outlined
+        disable
+        label="Estado*"
+        :error-message="form.errors['address.state']"
+        clearable
+        :error="isValidFormState"
+        autocomplete="off"
+        class="tw-w-three-inputs"
+      />
+
       <!-- Buttons -->
       <div class="flex justify-end">
         <q-btn
@@ -186,28 +283,27 @@ const props = defineProps({
   validationErrors: Object
 })
 
+const onReset = async () => {
+  resetForm()
+  resetValidation()
+}
+
 const form = useForm({
   image: props.event?.image ?? '',
   title: props.event?.title ?? '',
   date: props.event?.date ?? '',
   duration: props.event?.duration ?? '',
-  description: props.event?.description ?? ''
+  description: props.event?.description ?? '',
+  address: {
+    zip_code: props.event?.address.zip_code ?? '',
+    street: props.event?.address.street ?? '',
+    number: props.event?.address.number ?? '',
+    district: props.event?.address.district ?? '',
+    complement: props.event?.address.complement ?? '',
+    city: props.event?.address.city ?? '',
+    state: props.event?.address.state ?? ''
+  }
 })
-
-// const errors = computed(() => {
-//   return {
-//     image: props.validationErrors.image ?? '',
-//     title: props.validationErrors.title ?? '',
-//     date: props.validationErrors.date ?? '',
-//     duration: props.validationErrors.duration ?? '',
-//     description: props.validationErrors.description ?? ''
-//   }
-// })
-
-const onReset = async () => {
-  resetForm()
-  resetValidation()
-}
 
 const resetForm = () => {
   form.title = props.event?.title ?? ''
@@ -215,6 +311,13 @@ const resetForm = () => {
   form.date = props.event?.date ?? ''
   form.duration = props.event?.duration ?? ''
   form.description = props.event?.description ?? ''
+  form.address.zip_code = props.event?.address.zip_code ?? ''
+  form.address.street = props.event?.address.street ?? ''
+  form.address.number = props.event?.address.number ?? ''
+  form.address.district = props.event?.address.district ?? ''
+  form.address.complement = props.event?.address.complement ?? ''
+  form.address.city = props.event?.address.city ?? ''
+  form.address.state = props.event?.address.state ?? ''
 }
 
 const resetValidation = () => {
@@ -226,7 +329,15 @@ const isValidFormTitle = computed(() => { return form.title === '' && Object.key
 const isValidFormDate = computed(() => { return form.date === '' && Object.keys(form.errors).length > 0 })
 const isValidFormDuration = computed(() => { return form.duration === '' && Object.keys(form.errors).length > 0 })
 const isValidFormDescription = computed(() => { return form.description === '' && Object.keys(form.errors).length > 0 })
+// Address
+const isValidFormZipCode = computed(() => { return form.address.zip_code === '' && Object.keys(form.errors).length > 0 })
+const isValidFormStreet = computed(() => { return form.address.street === '' && Object.keys(form.errors).length > 0 })
+const isValidFormNumber = computed(() => { return form.address.number === '' && Object.keys(form.errors).length > 0 })
+const isValidFormDistrict = computed(() => { return form.address.district === '' && Object.keys(form.errors).length > 0 })
+const isValidFormCity = computed(() => { return form.address.city === '' && Object.keys(form.errors).length > 0 })
+const isValidFormState = computed(() => { return form.address.state === '' && Object.keys(form.errors).length > 0 })
 
+// Options calendar
 const locale = {
   days: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
   daysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],

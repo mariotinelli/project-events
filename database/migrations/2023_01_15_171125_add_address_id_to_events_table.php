@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('user_type_id')->after('id');
+        Schema::table('events', function (Blueprint $table) {
+            $table->unsignedInteger('address_id')->after('event_category_id');
+            $table->foreign('address_id')->references('id')->on('address')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 
@@ -25,8 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('user_type_id');
+        Schema::table('events', function (Blueprint $table) {
+            $table->dropColumn('address_id');
+            $table->dropForeign(['address_id']);
         });
     }
 };

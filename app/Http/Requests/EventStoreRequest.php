@@ -28,7 +28,14 @@ class EventStoreRequest extends FormRequest
             'title' => ['required', 'string'],
             'date' => ['required', 'date_format:d/m/Y H:i:s'],
             'duration' => ['required', 'date_format:H:i:s'],
-            'description' => ['required', 'string']
+            'description' => ['required', 'string'],
+            'address.zip_code' => ['required', 'max:8', 'min:8'],
+            'address.street' => ['required'],
+            'address.number' => ['required'],
+            'address.district' => ['required'],
+            'address.complement' => ['nullable'],
+            'address.city' => ['required'],
+            'address.state' => ['required']
         ];
     }
 
@@ -45,7 +52,13 @@ class EventStoreRequest extends FormRequest
             'title.required' => 'É necessário inserir um título para o evento',
             'date.required' => 'É necessário inserir uma data para o evento',
             'duration.required' => 'É necessário inserir o tempo de duração do evento',
-            'description.required' => 'É necessário inserir uma descrição para o evento'
+            'description.required' => 'É necessário inserir uma descrição para o evento',
+            'address.zip_code.required' => 'É necessário inserir um cep para o evento',
+            'address.street.required' => 'É necessário inserir o endereço do evento',
+            'address.number.required' => 'É necessário inserir o número do endereço do evento',
+            'address.district.required' => 'É necessário inserir o bairro do endereço do evento',
+            'address.city.required' => 'É necessário inserir a cidade do evento',
+            'address.state.required' => 'É necessário inserir o estado do evento',
         ];
     }
 }

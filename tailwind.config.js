@@ -27,6 +27,9 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Nunito', ...defaultTheme.fontFamily.sans]
+      },
+      width: {
+        'three-inputs': '32%'
       }
     }
   },

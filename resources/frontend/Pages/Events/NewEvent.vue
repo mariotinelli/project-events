@@ -1,9 +1,10 @@
+<!-- eslint-disable vue/attribute-hyphenation -->
 
 <template layout="AppShell,Layout">
   <Head title="Novo Evento" />
 
-  <div class="bg-white tw-w-1/3 tw-mx-auto tw-mt-10 tw-shadow tw-shadow-black tw-rounded">
-    <h3 class="tw-text-center q-pa-md bg-dark tw-text-white">
+  <div class="bg-white tw-w-3/4 tw-mx-auto tw-my-10 tw-shadow tw-shadow-black tw-rounded">
+    <h3 class="tw-text-center q-pa-md bg-blue tw-text-white">
       Novo Evento
     </h3>
 
